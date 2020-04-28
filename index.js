@@ -29,17 +29,18 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
         const { data } = res;
         const items = [];
         const $ = cheerio.load(data);
+        console.log(data);
+        console.log('len: ',$('.Card').children('.HotList-item').length);
         $('.Card').children('.HotList-item').each((idx, element) => {
           const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
           items.push(entities.decode($HotItem.html()));
         });
-        console.log(items);
         await octokit.gists.update({
           gist_id: gistID,
           files: {
             [fileName]: {
               fileName: 'Zhihu',
-              content: items.join('\n')
+              content: 'test'
             }
           }
         }).catch(error => {
