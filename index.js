@@ -33,7 +33,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
         console.log('len: ',$('.Card').children('.HotList-item').length);
         $('.Card').children('.HotList-item').each((idx, element) => {
           const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
-          items.push(entities.decode($HotItem.html()));
+          items.push(`${idx}. ${entities.decode($HotItem.html())}`);
         });
         await octokit.gists.update({
           gist_id: gistID,
