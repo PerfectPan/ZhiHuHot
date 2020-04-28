@@ -1,0 +1,29 @@
+{
+  "name": "zhihuhot",
+  "version": "1.0.0",
+  "description": "实时检测知乎热榜",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PerfectPan/ZhiHuHot.git"
+  },
+  "author": "PerfectPan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PerfectPan/ZhiHuHot/issues"
+  },
+  "homepage": "https://github.com/PerfectPan/ZhiHuHot#readme",
+  "devDependencies": {
+    "@octokit/types": "^2.12.2",
+    "@types/node": "^13.13.4"
+  },
+  "dependencies": {
+    "@octokit/rest": "^17.6.0",
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0"
+  }
+}
