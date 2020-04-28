@@ -1,0 +1,30 @@
+name: Zhihu Hot Detector
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+
+jobs:
+  detector:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: |
+          npm install
+      - name: Run Script
+        run: |
+          node index.js
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ef3be823f158ec1db462d23b859dd506
