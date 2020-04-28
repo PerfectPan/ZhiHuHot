@@ -1,7 +1,8 @@
 require('dotenv').config();
 
 const axios = require('axios');
-const Octokit = require('@octokit/rest');
+// https://github.com/octokit/rest.js/issues/1647
+const { Octokit } = require('@octokit/rest');
 const cheerio = require('cheerio');
 
 const { GIST_ID: gistID, GH_TOKEN: githubToken } = process.env;
