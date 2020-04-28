@@ -40,7 +40,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
           files: {
             [fileName]: {
               fileName: 'Zhihu',
-              content: 'test'
+              content: `知乎热榜\n${items.join('\n')}`
             }
           }
         }).catch(error => {
