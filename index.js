@@ -4,13 +4,16 @@ const axios = require('axios');
 // https://github.com/octokit/rest.js/issues/1647
 const { Octokit } = require('@octokit/rest');
 const cheerio = require('cheerio');
+// 中文解码
+const Entities = require('html-entities').XmlEntities;
+const entities = new Entities();
 
 const { GIST_ID: gistID, GH_TOKEN: githubToken } = process.env;
 
 const octokit = new Octokit({auth: `token ${githubToken}`});
 
 ;(async () => {
-  const gist = await octokit.gist.get({gist_id: gistID})
+  const gist = await octokit.gists.get({gist_id: gistID})
     .catch(err => {throw new Error(`Get gist failed\n ${err}`)});
   const fileName = Object.keys(gist.data.files)[0];
   axios
@@ -27,9 +30,9 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
         const $ = cheerio.load(data);
         $('.Card').children('.HotList-item').each((idx, element) => {
           const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
-          items.push($HotItem.html());
+          items.push(entities.decode($HotItem.html()));
         });
-        await octokit.gist.update({
+        await octokit.gists.update({
           gist_id: gistID,
           files: {
             [fileName]: {

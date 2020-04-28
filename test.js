@@ -1,5 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const Entities = require('html-entities').XmlEntities;
+const entities = new Entities();
 ;(async() => {
   console.log(1);
   await axios
@@ -16,7 +18,7 @@ const cheerio = require("cheerio");
       const $ = cheerio.load(data);
 			$('.Card').children('.HotList-item').each((idx, element) => {
         const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
-        items.push($HotItem.html());
+        items.push(entities.decode($HotItem.html()));
 			});
 			console.log(items.join("\n"));
 		} else {
