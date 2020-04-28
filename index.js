@@ -16,7 +16,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
   const gist = await octokit.gists.get({gist_id: gistID})
     .catch(err => {throw new Error(`Get gist failed\n ${err}`)});
   const fileName = Object.keys(gist.data.files)[0];
-  console.log(fileName);
+  console.log(`fileName: ${fileName}`);
   axios
     .get('https://www.zhihu.com/hot', {
       headers: {
@@ -33,6 +33,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
           const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
           items.push(entities.decode($HotItem.html()));
         });
+        console.log(items);
         await octokit.gists.update({
           gist_id: gistID,
           files: {
