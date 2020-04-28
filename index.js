@@ -18,7 +18,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
   const fileName = Object.keys(gist.data.files)[0];
   console.log(`fileName: ${fileName}`);
   axios
-    .get('https://www.zhihu.com/hot', {
+    .get('https://www.zhihu.com/billboard', {
       headers: {
         "User-Agent": "",
         "Cookie": ""
