@@ -14,15 +14,20 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
     .catch(err => {throw new Error(`Get gist failed\n ${err}`)});
   const fileName = Object.keys(gist.data.files)[0];
   axios
-    .get('https://www.zhihu.com/hot')
+    .get('https://www.zhihu.com/hot', {
+      headers: {
+        "User-Agent": "",
+        "Cookie": ""
+      }
+    })
     .then(async (res) => {
       if (res.status === 200) {
         const { data } = res;
         const items = [];
         const $ = cheerio.load(data);
-        $('.HotList-list').each((idx, element) => {
-          const $HotItem = $(element).children('.HotItem-content');
-          items.push($HotItem.attr('title'));
+        $('.Card').children('.HotList-item').each((idx, element) => {
+          const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
+          items.push($HotItem.html());
         });
         await octokit.gist.update({
           gist_id: gistID,
