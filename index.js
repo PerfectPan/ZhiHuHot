@@ -14,7 +14,7 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
   const fileName = Object.keys(gist.data.files)[0];
   axios
     .get('https://www.zhihu.com/hot')
-    .then(res => {
+    .then(async (res) => {
       if (res.status === 200) {
         const { data } = res;
         const items = [];
