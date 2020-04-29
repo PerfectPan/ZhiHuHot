@@ -16,7 +16,6 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
   const gist = await octokit.gists.get({gist_id: gistID})
     .catch(err => {throw new Error(`Get gist failed\n ${err}`)});
   const fileName = Object.keys(gist.data.files)[0];
-  console.log(`fileName: ${fileName}`);
   axios
     .get('https://www.zhihu.com/billboard', {
       headers: {
@@ -29,11 +28,9 @@ const octokit = new Octokit({auth: `token ${githubToken}`});
         const { data } = res;
         const items = [];
         const $ = cheerio.load(data);
-        console.log(data);
-        console.log('len: ',$('.Card').children('.HotList-item').length);
         $('.Card').children('.HotList-item').each((idx, element) => {
           const $HotItem = $(element).children('.HotList-itemBody').children('.HotList-itemTitle');
-          items.push(`${idx}. ${entities.decode($HotItem.html())}`);
+          items.push(`${idx + 1}. ${entities.decode($HotItem.html())}`);
         });
         await octokit.gists.update({
           gist_id: gistID,
